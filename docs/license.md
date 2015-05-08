@@ -1,0 +1,1 @@
+The project and its documentation is published under the [LGPL license](https://www.gnu.org/licenses/lgpl.html)
