@@ -48,4 +48,5 @@ form, technologies, solutions
 ### Separation of responsibilities and capabilities
 ### Extensibility
 
-## Licensing choice
+## Process
+Aspiring to [C4](http://zguide.zeromq.org/page:all#toc141)
