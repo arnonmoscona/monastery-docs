@@ -1,6 +1,9 @@
 # Welcome to Monstary
 
+An open clustering framework.
 
-[TOC]
+## Index
+### [About the project](about.md)
+### [License](license.md)
 
 
