@@ -50,3 +50,12 @@ form, technologies, solutions
 
 ## Process
 Aspiring to [C4](http://zguide.zeromq.org/page:all#toc141)
+
+* It seems to work
+* It makes sense
+* I am too lazy to invent a new one and document it
+
+## Authoring
+The documentation project is written in Markdown, and it is built with [mkdocs](http://www.mkdocs.org/). It is organized as a separate [GitHub project](https://github.com/arnonmoscona/monastery-docs) from the [API](https://github.com/arnonmoscona/monastery-api) itself.
+
+As per the [C4 process](http://zguide.zeromq.org/page:all#toc141), contributions should be made via forking and GitHub pull requests.
