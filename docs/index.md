@@ -1,3 +1,4 @@
+<script src="mermaid.full.min.js"></script>
 # Welcome to Monstary
 
 An open clustering framework.

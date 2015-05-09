@@ -39,6 +39,13 @@ On examining the problem more closely, it appears that what is missing is not so
 
 ## Principles
 ### Minimalism
+#### Minimal opinion
+* pretty much everything is optional
+* minimal or no assumptions about underlying implementation capabilities
+* anyone can add capabilities. No need to coordinate or update the framework.
+* contracts of underlying implementations are not assumed beyond what they need to expose via the defined capabilities.
+	* if they don't like the "standard" capabilities, they can always add their own. Although this may limit code portability and may even lead to a technology lock-in.
+	* *importantly*, the framework makes no assumptions about the CAP approach of the underlying implementation. It does allow the implementation to make formal claims about it's CAP properties, so that application code can decide whether it's compatible with the implementation, or adapt to the CAP assumptions indicated by the implementation.
 ### Clarity and understandability
 ### Build on a foundation of pure interfaces and contracts
 ### What, not how
@@ -59,3 +66,6 @@ Aspiring to [C4](http://zguide.zeromq.org/page:all#toc141)
 The documentation project is written in Markdown, and it is built with [mkdocs](http://www.mkdocs.org/). It is organized as a separate [GitHub project](https://github.com/arnonmoscona/monastery-docs) from the [API](https://github.com/arnonmoscona/monastery-api) itself.
 
 As per the [C4 process](http://zguide.zeromq.org/page:all#toc141), contributions should be made via forking and GitHub pull requests.
+
+### Diagrams
+At this stage, Diagrams should be authored using [Mermaid CLI](http://knsv.github.io/mermaid/mermaidCLI.html), exported to SVG or PNG and added as images. Ideally, should be able to embed mermaid diagrams directly into pages, but some hosting sites do not allow JS, and require completely static Markdown.
