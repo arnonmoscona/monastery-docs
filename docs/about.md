@@ -1,3 +1,4 @@
+<span style="float:right">![logo](monastery_logo_100.svg)<span>
 
 [TOC]
 
@@ -7,6 +8,8 @@
 Monastery is a model for clustered computing.
 
 It is made up of a set of interfaces, contracts, and documentation for putting together a useful cluster of working nodes. It is intended to simplify clustered computing in much the same way that the servlet specification helps putting together application servers. Much like it, Monastery separates the specification from the implementation. The Monastery project includes some full implementations of the interfaces, but those are not intended to be "reference implementations", but only "implementations".
+
+Another difference from the familiar application container model, is that in Monastery, the application is independent of the cluster. It is not embedded in a container, but rather has a contact point that communicates with the cluster: the [`Node`](node). Many applications would already be contained in an existing container, and you probably in no position (or mood) to change that.
 
 Clustering technology and needs are very diverse and are still fast changing in 2015. Therefore, Monastery does not attempt to be authoritative with respect to the set of capabilities exposed by the interfaces and implementations. It is open to change and augmentation. While its core includes some key capabilities, the specification itself is extensible, and additional capabilities can be added without breaking the model. In this its nature differs from the servlet specification, which is a product of an authoritative committee.
 
@@ -35,7 +38,7 @@ Some of the problems that I wanted to address are:
 
 In short, I was not able to find anything coming close to even a small subset of this set of attributes. There are some fantastic projects out there, but none actually seems very practical when looked at closely. In real-world examination, all seemed to leave a good deal of development to get something we could adopt at my work. 
 
-On examining the problem more closely, it appears that what is missing is not so much core, difficult technologies, but mostly a framework that stiches everything together in a sensible way.
+On examining the problem more closely, it appears that what is missing is not so much core, difficult technologies, but mostly a framework that stitches everything together in a sensible way.
 
 ## Principles
 ### Minimalism
@@ -66,6 +69,3 @@ Aspiring to [C4](http://zguide.zeromq.org/page:all#toc141)
 The documentation project is written in Markdown, and it is built with [mkdocs](http://www.mkdocs.org/). It is organized as a separate [GitHub project](https://github.com/arnonmoscona/monastery-docs) from the [API](https://github.com/arnonmoscona/monastery-api) itself.
 
 As per the [C4 process](http://zguide.zeromq.org/page:all#toc141), contributions should be made via forking and GitHub pull requests.
-
-### Diagrams
-At this stage, Diagrams should be authored using [Mermaid CLI](http://knsv.github.io/mermaid/mermaidCLI.html), exported to SVG or PNG and added as images. Ideally, should be able to embed mermaid diagrams directly into pages, but some hosting sites do not allow JS, and require completely static Markdown.
