@@ -1,4 +1,4 @@
-# The Node<span style="float:right">![logo](monastery_logo_100.svg)<span>
+# The Node <span style="float:right">![logo](monastery_logo_100.svg)<span>
 
 The `Node` interface is the main interface between the application and the cluster. It is a representation of the local node's runtime cluster identity, and the interface via which the application obtains access to the cluster's capabilities.
 
@@ -9,7 +9,7 @@ The application obtains a reference to a `Node` from the implementing library or
 The `Node` itself is very minimal. All it has is:
 
 1. An ID
-2. A method to get `Capability` object references of any implemented `Capability` interface.
+2. A method to get [`Capability`](Capabilities.md) object references of any implemented `Capability` interface.
 3. An elementary state of the node in the cluster (non-functional)
 
 ## Node ID
@@ -38,6 +38,27 @@ Note that importantly, being in a `JOINED` state says nothing about whether the 
 
 So joining the cluster, is basically a "green light" to start using its capabilities.
 
+> **Note**
+> 
+> The node lifecycle described here is actually not built-in to the node. 
+> It is a `Capability`, and like all capabilities it is both pluggable ad optional.
+> Having said this, many capabilities rely on the node ID, and may need to know that the node is actually joined to the cluster and that the ID is valid in the cluster. So in practice, this is quite central. 
+> 
+> It is possible, however for an implementation to forgo implementing the node announcement capability and ignore this state model, or introduce a different one.
+
+## Building a node
+
 ## Capabilities
+Capabilities are discussed in more detail in the [capabilities page](Capabilities.md).
+
+In short, the node itself provides no real functionality. It is just a container for pluggable capabilities, which are all entirely optional. Monastery is unopinionated about what capabilities a cluster should have, nor has it any opinion on what algorithms should be used or what their attributes should be.
+
+So what is the point?
+
+Monastery does provide a set of predefined capabilities, defined as interfaces, and their documented contracts. Those provide a template of sorts for Monastery implementations to provide a common view of the cluster with interchangeable implementations. This is similar to some of the javax APIs, which provide standard interfaces but no implementations, leaving it to the community to provide implementations.
+
+While Monastery provides a set of standard capability interfaces, anyone can add additional capability interfaces without changing or breaking the Monastery API (implementation behavior can be broken, naturally).
+
+In a separate project, a Monastery base implementation of some of the capabilities is provided to ease the development of implementations, but that is also not mandatory to use.
 
 ## Working with the `Node`

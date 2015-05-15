@@ -2,5 +2,5 @@ site_name: Monastery Docs
 repo_url: https://github.com/arnonmoscona/monastery-docs
 site_author: Arnon Moscona
 theme: readthedocs
-pages: ["index.md", "about.md", "node.md", "license.md"]
+pages: ["index.md", "about.md", "node.md", "Capabilities.md", "license.md"]
 

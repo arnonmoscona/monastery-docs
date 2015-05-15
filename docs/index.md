@@ -8,6 +8,7 @@ An open clustering framework.
 #### [About the project](about.md)
 #### [The `Node` interface](node.md)
 #### [License](license.md)
+#### [Capabilities](Capabilities.md)
 
 
 
