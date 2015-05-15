@@ -47,6 +47,19 @@ So joining the cluster, is basically a "green light" to start using its capabili
 > It is possible, however for an implementation to forgo implementing the node announcement capability and ignore this state model, or introduce a different one.
 
 ## Building a node
+In the simplest case, one implementation provides all the node capabilities in one neat package. In cases like this, an implementation may simply provide a constructor, and you could be done there: `Node<Integer> node = new NodeImpl();`
+
+But the idea is that there may be many sources of capabilities, some quite independent from the others. So an implementation of Monastery should also implement the `NodeBuilder` interface and allow you to put together a local node from several capability sources, like so:
+
+```Java
+NodeBuilder builder = new NodeBuilderImpl(); // NodeBuilderImpl implements NodeBuilder
+Node<String> node = builder
+    .add(new Capability1())
+    .add(new Capability2())
+    .build();
+```
+
+The provided `NodeBuilder` may start you out with a bunch of capabilities provided by the implementation, or may leave it to you to pick and choose. You can add more capabilities, which may come from any source, and thus enrich the node with any functionality you need from it.
 
 ## Capabilities
 Capabilities are discussed in more detail in the [capabilities page](Capabilities.md).
@@ -62,3 +75,32 @@ While Monastery provides a set of standard capability interfaces, anyone can add
 In a separate project, a Monastery base implementation of some of the capabilities is provided to ease the development of implementations, but that is also not mandatory to use.
 
 ## Working with the `Node`
+
+Since the node is so minimal, there is nothing much you can do with it. All the real functionality comes in the capabilities it is made up of. Monastery defines several built-in capability interfaces and provides some abstract patial implementations. An implementation would implement some subset of concrete capabilities, and may add more that are not represented by built-in interfaces.
+
+For example, given a node that has a `NodeAnnouncement` capability, you can invoke the functionality of the capability like so:
+
+```Java
+try {
+   NodeAnnouncement<?> nodeAnnouncement = node.getCapability(NodeAnnouncement.class).get();
+   nodeAnnouncement.addJoinListener(node -> System.out.println("Node joined (known via callback)"));
+   nodeAnnouncement.announce().thenAcceptAsync(nodeAnnouncer -> {
+       System.out.printf("\nfinished with ID %s and state %s\n", node.getId(), nodeAnnouncer.getState()); // state is JOINED
+   });
+}
+catch(Throwable ex) {
+   throw new Exception("No node announcement capability available");
+}
+```
+
+The node implementation ensures that the capability lidecycle is properly managed. See more on the in the [capabilities page](Capabilities.md)
+
+Note the convensions in Monastery:
+* All interface methods that may require remote communications return `CompletableFuture` objects. This makes working with nodes either synchronously or asynchronousely a snap. Both examples are shown above.
+* `null` is never returned, or passed to callbacks.
+  * If a value can be legitimately missing then Monastery interfaces use `Optional` to make that explicit.
+  * If a value is not wrapped in an `Optional` then it is expected to be not `null` and if it's not there then it's an error and an exception will occur.
+
+In the code example above, it is assumed that if you are calling `getCapability()` you are expressing a dependency on this capability, and that a null is not acceptable. Therefore if a matching capability is not found in the node, then the future will complete exceptionally.
+
+Similarly, when you pass join listener to `addJoinListener()`, the parameter is not `Optional`, therefore passing a `null` will get you in trouble: either an exception will be thrown immediately, or later, when the `NodeAnnouncement` capability tries to invoke your action.
