@@ -11,6 +11,7 @@ The `Node` itself is very minimal. All it has is:
 1. An ID
 2. A method to get [`Capability`](Capabilities.md) object references of any implemented `Capability` interface.
 3. An elementary state of the node in the cluster (non-functional)
+4. A connection string, which has implementation-specific semantics.
 
 ## Node ID
 
@@ -22,6 +23,12 @@ The node ID represents the runtime identity of the local node in the cluster.
 * The ID may not change for at least as long as the node is joined to the cluster
 
 Note that the ID may or may not be persistent, and it may or may not exist before the node is joined to the cluster.
+
+## Connection string
+
+A node that you cannot connect to is not practical in a distributed system. So the node has a connection string which allows other nodes to connect to it. What the connection string means is specific to a cluster implementation.
+
+Note that there is a fundamental difference between the cluster connection string for the purposes of the cluster implementation, and the services that the node may provide on the data plane. The services it provides may have their own connection strings or other connections specifications (e.g. a URL for a REST service). Those are entirely orthogonal to the internal workings of the clusetr technology. Services are covered in the [services page](services.md).
 
 ## Node life cycle
 
