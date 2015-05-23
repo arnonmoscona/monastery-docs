@@ -1,4 +1,6 @@
-# Capability <span style="float:right">![logo](monastery_logo_100.svg)<span>
+# Capabilities <span style="float:right">![logo](monastery_logo_100.svg)<span>
+
+[TOC]
 
 Node capabilities are the core of any useful Monastery functionality. Under the assumption that we really cannot know what sort of distributed functionality are needed and what sorts of functionality will be invented in the future, Monastery makes no assumptions on what capabilities exist. Monastery allows to build up a custom made solution by composing multiple capabilities into a node, and then using those capabilities to make nodes perform useful work together.
 
