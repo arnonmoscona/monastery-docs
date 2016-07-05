@@ -6,6 +6,7 @@ An open clustering framework.
 
 ## Index
 #### [About the project](about.md)
+#### [The domain](domain-model.md)
 #### [The `Node` interface](node.md)
 #### [Capabilities](Capabilities.md)
 #### [License](license.md)

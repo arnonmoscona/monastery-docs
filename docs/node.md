@@ -1,5 +1,7 @@
 # The Node <span style="float:right">![logo](monastery_logo_100.svg)<span>
 
+[TOC]
+
 The `Node` interface is the main interface between the application and the cluster. It is a representation of the local node's runtime cluster identity, and the interface via which the application obtains access to the cluster's capabilities.
 
 The application obtains a reference to a `Node` from the implementing library or framework, and after that it uses it to communicate with the cluster by getting references to appropriate capabilities and using those.

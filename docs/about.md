@@ -2,6 +2,15 @@
 
 [TOC]
 
+# The problem
+
+Today's applications have gone far beyond J2EE and are commonly fully distributed. Many application need cluster coordination capabilities. Those may include distributed data structures, leader election, and many other capabilities. Certainly many applications can be written with no explicit cluster coordination, delegating clustering to load balancers and other solutions.
+
+For applications that do require custom cluster coordination, many open source and commerc ial solutions emerged. But once chosen, your application becomes quite tightly coupled to the specific solution. Additionally those solutions do not provide a uniform set of capabilities, and most have only partial coverage of various commoncapabilities and patterns.
+
+Mixing and matching solutions is non-trivial, and migrating your application from one solution to another is difficult.
+
+Monastery aims to solve this problem by providing a portable cluster capability framework and several implementations. It is easily extensible and distributed applications can be composed from standard, abstract, and relatively simple "Lego bricks".
 
 # About the Monastery project
 
