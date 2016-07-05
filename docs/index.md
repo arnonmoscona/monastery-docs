@@ -3,6 +3,7 @@
 
 
 An open clustering framework.
+![WIP](wip.jpg)
 
 ## Index
 #### [About the project](about.md)
