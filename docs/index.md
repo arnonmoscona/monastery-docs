@@ -10,6 +10,7 @@ An open clustering framework.
 #### [The domain](domain-model.md)
 #### [The `Node` interface](node.md)
 #### [Capabilities](Capabilities.md)
+#### [Services](services.md)
 #### [License](license.md)
 
 

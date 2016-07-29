@@ -24,7 +24,7 @@ For instance:
 Part of the minimalism of Monastery is that not every conceivable option needs to be exposed via an interface. The opposite is the convention here: expose what is minimally needed to get the basic functionality working. If you want to expose more functionality or options, you have two ways to do it:
 
 1. Let the user use your own implementation class directly (at the risk of incompatibility)
-2. Expose the other functionality and/or options as separate, narrow capabilities. Perhaps some of those are defined broadly enough that they would be appropriate to publish as "standard" capabilities.
+2. Expose the other functionality and/or options as separate, narrow capabilities. Perhaps some of those are defined broadly enough that they would be appropriate to publish as "core" capabilities.
 
 Capability interfaces should be strictly focused on the "what" not the "how". The example of a `ReplicatedLogWithStrongConsistency` should provide an interface and a contract that promises a well understood external behavior. Whether the implementation leverages a replicated state machine with Paxos, or is implemented on top of ZooKeeper is "just and implementation detail".
 
@@ -40,7 +40,7 @@ In this situation, if one tries to look up a `NodeAnnouncement` capability from 
 
 This becomes very useful when one attempts to construct complex compound capabilities that are attempt to be independent from the specific cluster implementation. For instance, a compound capability may need a `EventuallyConsistentReplicatedProperties` capability and a `UnreliableNodeDiscovery` capability in order to be able to minimally function. Any capability that is available, even if it exceeds the requirement, would work for this compound capability.
 
-## Standard capabilities
+## Core capabilities
 
 ### `NodeAnnouncement`
 
@@ -53,3 +53,11 @@ Node discovery is the mirror image of node announcement. A node that has this ca
 Note that the reliability of both of these functions is dependent on the specific implementation. The minimal contract is that any node information provided by either function is true. That is to say, there are no "false positives" any information provided reflects a real node that exists, or existed at some point in the life of the cluster.
 
 In all implementation the information does not mean that the node is healthy, functional, reachable, or in any way functional. It only means that it managed to announce itself to the cluster at some point of time.
+
+## Modules
+
+
+----
+![todo](construction.png)
+
+**todo: bundling multiple related capabilities into a module, which extend the model with a new bounded context a bounded context**

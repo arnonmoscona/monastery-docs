@@ -8,5 +8,6 @@ pages:
   - "domain-model.md"
   - "node.md"
   - "Capabilities.md"
+  - "services.md"
   - "license.md"
 

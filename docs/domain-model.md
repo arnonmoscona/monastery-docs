@@ -45,8 +45,10 @@ Monastery is a generalized framework for abstractly representing a cluster as vi
 # Mixing and matching
 
 ----
-![todo](todo-icon.png)
+![todo](construction.png)
 
+**todo: describe Monastery as an anti-corruption layer**
+**todo: describe capability bundles as bounded contexts**
 **todo: describe mixing multiple implementations and composing portable capabilities**
-
 **todo: describe mixing and matching when there are overlaps between multiple implementations**
+**todo: Nodes are aggregate roots. So capabilities must be immutable. Capability mutation must be done by replacement. Replacement must be done by the node. But then what is a node supervisor? A factory?**

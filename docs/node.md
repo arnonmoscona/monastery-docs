@@ -17,7 +17,7 @@ The `Node` itself is very minimal. All it has is:
 
 ## Node ID
 
-The node ID represents the runtime identity of the local node in the cluster.
+The node ID represents the run-time identity of the local node in the cluster.
 
 * The ID must be unique cluster-wide. This is enforced by the implementation.
 * The ID may be `null` until the node is in a `JOINED` state
@@ -41,7 +41,7 @@ The local node's states are very simple, and are not intended for complex state 
 
 1. When the node starts out, it is in a `DISCONNECTED` state. At this stage, no node in the cluster knows about the local node, and it does not communicate with the cluster.
 2. To join the cluster the `Node` is 'announced' to the cluster. Once announced, the node switches to an `ANNOUNCED` state. In this state, the node is still not usable as a cluster node, but the implementation is "working on it"
-3. When the process of joining the cluster is complete, the node enters its final stage, which is `JOINED`. At this state, we know that the node's existence is now been known to the cluster and it's runtime ID has been established.
+3. When the process of joining the cluster is complete, the node enters its final stage, which is `JOINED`. At this state, we know that the node's existence is now been known to the cluster and it's run-time ID has been established.
 
 Note that importantly, being in a `JOINED` state says nothing about whether the node is usable, whether it can connect with the cluster, or whether it is in any way healthy or functional. What you *do know* is that *until* it is in a `JOINED` state, there is no point in trying to obtain or use any capabilities.
 
@@ -49,26 +49,32 @@ So joining the cluster, is basically a "green light" to start using its capabili
 
 > **Note**
 > 
-> The node lifecycle described here is actually not built-in to the node. 
-> It is a `Capability`, and like all capabilities it is both pluggable ad optional.
+> The node life-cycle described here is actually not built-in to the node. 
+> It is tied to a `Capability`, and like all capabilities it is both pluggable and optional.
 > Having said this, many capabilities rely on the node ID, and may need to know that the node is actually joined to the cluster and that the ID is valid in the cluster. So in practice, this is quite central. 
 > 
 > It is possible, however for an implementation to forgo implementing the node announcement capability and ignore this state model, or introduce a different one.
+>
+> Also note that the API is set up such that you should not really end up with a node without an ID. An implementation can violate this principle, but it should not. The node instance is obtained with a `connect()` method, and when connected, the node should have a valid ID, and ideally should be immutable from that point on. At the very least, the `Node` instance should be thread safe.
 
 ## Building a node
 In the simplest case, one implementation provides all the node capabilities in one neat package. In cases like this, an implementation may simply provide a constructor, and you could be done there: `Node<Integer> node = new NodeImpl();`
 
-But the idea is that there may be many sources of capabilities, some quite independent from the others. So an implementation of Monastery should also implement the `NodeBuilder` interface and allow you to put together a local node from several capability sources, like so:
+But the idea is that there may be many sources of capabilities, some quite independent from the others. So an implementation of Monastery should also implement the `NodeProviderBuilder` interface and allow you to put together a local node from several capability sources, like so:
 
 ```Java
-NodeBuilder builder = new NodeBuilderImpl(); // NodeBuilderImpl implements NodeBuilder
-Node<String> node = builder
+NodeBuilder builder = new NodeProviderBuilderImpl(); // NodeProviderBuilderImpl implements NodeProviderBuilder
+builder
     .add(new Capability1())
     .add(new Capability2())
-    .build();
+    .build()
+    .connect()
+    .thenApply(...);
 ```
 
-The provided `NodeBuilder` may start you out with a bunch of capabilities provided by the implementation, or may leave it to you to pick and choose. You can add more capabilities, which may come from any source, and thus enrich the node with any functionality you need from it.
+The implementation-provided `NodeProviderBuilder` may start you out with a bunch of capabilities provided by the implementation, or may leave it to you to pick and choose. You can add more capabilities, which may come from any source, and thus enrich the node with any functionality you need from it.
+
+The `NodeProvider` that results, is note the `Node` itself, but an object that allows you to obtain a future `Node` through its `connect()` method, which in turn returns a `CompletionStage` through which one might interact with the node, once connected. At that point the node must have a valid ID. 
 
 ## Capabilities
 Capabilities are discussed in more detail in the [capabilities page](Capabilities.md).
@@ -85,7 +91,7 @@ In a separate project, a Monastery base implementation of some of the capabiliti
 
 ## Working with the `Node`
 
-Since the node is so minimal, there is nothing much you can do with it. All the real functionality comes in the capabilities it is made up of. Monastery defines several built-in capability interfaces and provides some abstract patial implementations. An implementation would implement some subset of concrete capabilities, and may add more that are not represented by built-in interfaces.
+Since the node is so minimal, there is nothing much you can do with it. All the real functionality comes in the capabilities it is made up of. Monastery defines several built-in capability interfaces and provides some abstract partial implementations. An implementation would implement some subset of concrete capabilities, and may add more that are not represented by built-in interfaces.
 
 For example, given a node that has a `NodeAnnouncement` capability, you can invoke the functionality of the capability like so:
 
