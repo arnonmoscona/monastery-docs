@@ -54,10 +54,10 @@ Note that the reliability of both of these functions is dependent on the specifi
 
 In all implementation the information does not mean that the node is healthy, functional, reachable, or in any way functional. It only means that it managed to announce itself to the cluster at some point of time.
 
-## Modules
+## Low level capabilities
 
 
 ----
 ![todo](construction.png)
 
-**todo: bundling multiple related capabilities into a module, which extend the model with a new bounded context a bounded context**
+**todo: describe the set of low level capabilities that implementations should provide as a basis for composite capabilities**
